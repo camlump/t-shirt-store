@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
 
-import {commerce } from './lib/commerce'
+import {commerce } from './lib/commerce';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 // import Products from './components/Products'
 // import Navbar from './components/Navbar/Navbar'
 
-import {Products, Navbar, Cart } from './components'
+import {Products, Navbar, Cart } from './components';
 
 const App = () => {
 
@@ -36,12 +37,24 @@ const App = () => {
   
     console.log(cart)
     return (
-        <div>
+        <Router>
+            <div>
             <Navbar totalItems={cart.total_items} />
-            {/* <Products products={products} onAddToCart={handleAddToCart} /> */}
-            <Cart cart={cart} />
-        </div>
-    )
+            <Switch>
+                <Route exact path="/">
+                <Products products={products} onAddToCart={handleAddToCart} />
+
+                </Route>
+
+                <Route exact path="/shoppingcart">
+                    <Cart cart={cart} />
+                </Route>
+                
+            </Switch>
+            </div>
+
+        </Router>
+        )
 }
 
 export default App
